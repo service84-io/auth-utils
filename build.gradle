@@ -1,12 +1,33 @@
 plugins {
+  id 'maven'
+  id 'signing'
   id 'maven-publish'
   id 'java-library'
   id 'eclipse'
   id 'java'
 }
 
+apply plugin: 'maven'
 apply plugin: 'eclipse'
 apply plugin: 'java'
+
+task javadocJar(type: Jar) {
+  classifier = 'javadoc'
+  from javadoc
+}
+
+task sourcesJar(type: Jar) {
+  classifier = 'sources'
+  from sourceSets.main.allSource
+}
+
+artifacts {
+  archives javadocJar, sourcesJar
+}
+
+signing {
+  sign configurations.archives
+}
 
 java {
   withSourcesJar()
@@ -16,6 +37,53 @@ jar {
   baseName = 'authutils'
   version = '1.0.0'
   enabled = true
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ioService84OSSUsername, password: ioService84OSSPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ioService84OSSUsername, password: ioService84OSSPassword)
+      }
+
+      pom.project {
+        name 'Auth Utils'
+        packaging 'jar'
+        description 'Authentication and Authorization Utilities for a Spring service'
+        groupId 'io.service84.library'
+        artifactId jar.baseName
+        version = jar.version
+        url 'https://github.com/service84-io/auth-utils'
+
+        scm {
+          connection 'scm:git:https://github.com/service84-io/auth-utils.git'
+          developerConnection 'scm:git:https://github.com/service84-io/auth-utils.git'
+          url 'https://github.com/service84-io/auth-utils'
+        }
+
+        licenses {
+          license {
+            name 'The Apache License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+          }
+        }
+
+        developers {
+          developer {
+            id 'tyler'
+            name 'Tyler'
+            email 'Tyler@service84.io'
+          }
+        }
+      }
+    }
+  }
 }
 
 sourceCompatibility = 11.0
