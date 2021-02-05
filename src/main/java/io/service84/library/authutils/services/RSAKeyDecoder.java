@@ -8,14 +8,12 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.RSAPublicKeySpec;
 import java.util.Base64;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("EC235EB7-FA8E-4AE7-BA64-9347BAF0B1D2")
 public class RSAKeyDecoder {
   private KeyFactory keyFactory;
 
-  @Autowired
   public RSAKeyDecoder() {
     try {
       keyFactory = KeyFactory.getInstance("RSA");
