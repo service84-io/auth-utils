@@ -56,7 +56,11 @@ public class AuthenticationService {
       return Collections.emptyList();
     }
 
-    return authorities.stream().map(a -> a.getAuthority()).collect(Collectors.toList());
+    return authorities
+        .stream()
+        .filter(a -> a != null)
+        .map(a -> a.getAuthority())
+        .collect(Collectors.toList());
   }
 
   public String getSubject() {
@@ -76,6 +80,10 @@ public class AuthenticationService {
   }
 
   public void setAuthentication(Authentication authentication) {
-    SecurityContextHolder.getContext().setAuthentication(authentication);
+    SecurityContext context = SecurityContextHolder.getContext();
+
+    if (context != null) {
+      context.setAuthentication(authentication);
+    }
   }
 }
