@@ -1,6 +1,7 @@
 package io.service84.library.authutils.services;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -11,14 +12,14 @@ import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class RSAKeyDecoderTests {
   @TestConfiguration
   public static class Configuration {
@@ -38,9 +39,13 @@ public class RSAKeyDecoderTests {
 
   @Autowired private RSAKeyDecoder rsaKeyDecoder;
 
-  @Test(expected = InvalidKeySpecException.class)
-  public void decodeInvalidKeyTest() throws InvalidKeySpecException {
-    rsaKeyDecoder.decodePublicKey("INVALID", "INVALID");
+  @Test
+  public void decodeInvalidKeyTest() {
+    assertThrows(
+        InvalidKeySpecException.class,
+        () -> {
+          rsaKeyDecoder.decodePublicKey("INVALID", "INVALID");
+        });
   }
 
   @Test
