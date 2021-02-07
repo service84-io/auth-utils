@@ -99,12 +99,23 @@ configurations.all {
 }
 
 dependencies {
-  implementation 'org.springframework.boot:spring-boot-starter-security:2.3.1.RELEASE'
+  compileOnly 'org.springframework:spring-core:5.0.0.RELEASE'
+  compileOnly 'org.springframework.security:spring-security-core:5.0.0.RELEASE'
 
-  implementation 'org.apache.commons:commons-lang3:3.10'
+  compileOnly 'org.apache.commons:commons-lang3:3.0'
 
   ////////////////////////////////
   //Test Dependencies/////////////
   ////////////////////////////////
+  // This fulfils the SpringCore and SpringSecurityCore 5.x.x requirement
+  testImplementation 'org.springframework.boot:spring-boot-starter-security:2.3.1.RELEASE'
+
+  // This fulfils the CommonLang 3.x.x requirement
+  testRuntimeOnly 'org.apache.commons:commons-lang3:3.11'
+
   testImplementation 'org.springframework.boot:spring-boot-starter-test:2.3.1.RELEASE'
+}
+
+test {
+  useJUnitPlatform()
 }
