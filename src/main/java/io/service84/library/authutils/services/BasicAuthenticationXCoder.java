@@ -12,14 +12,14 @@ public class BasicAuthenticationXCoder {
     public String secret;
   }
 
-  private static String BASIC = "Basic ";
+  private static String BasicPrefix = "Basic ";
 
   public BasicAuthentication decode(String encodedBearerAuthentication) {
     if (encodedBearerAuthentication == null) {
       return null;
     }
 
-    String encodedAuthentication = encodedBearerAuthentication.replaceFirst(BASIC, "");
+    String encodedAuthentication = encodedBearerAuthentication.replaceFirst(BasicPrefix, "");
 
     try {
       String formattedAuthentication =
@@ -50,6 +50,6 @@ public class BasicAuthenticationXCoder {
     String formattedAuthentication = identifier + ":" + secret;
     String encodedAuthentication =
         Base64.getUrlEncoder().encodeToString(formattedAuthentication.getBytes());
-    return BASIC + encodedAuthentication;
+    return BasicPrefix + encodedAuthentication;
   }
 }
