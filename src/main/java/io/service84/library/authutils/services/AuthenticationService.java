@@ -70,8 +70,7 @@ public class AuthenticationService {
       return Collections.emptyList();
     }
 
-    return authorities
-        .stream()
+    return authorities.stream()
         .filter(a -> a != null)
         .map(a -> a.getAuthority())
         .collect(Collectors.toList());
