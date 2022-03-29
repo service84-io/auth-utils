@@ -28,6 +28,7 @@ versions are (built-tested)
     org.springframework.security:spring-security-core:(5.0.0.RELEASE-5.3.3)
     org.springframework:spring-core:(5.0.0.RELEASE-5.3.3)
     org.apache.commons:commons-lang3:(3.0-3.11)
+    org.slf4j:slf4j-api:(1.3.0-1.7.30)
 
 ## Build
 This is a Java 11 project that builds best with Gradle 6.3

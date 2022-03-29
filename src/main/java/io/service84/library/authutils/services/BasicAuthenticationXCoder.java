@@ -17,10 +17,14 @@ package io.service84.library.authutils.services;
 import java.util.Base64;
 
 import org.apache.commons.lang3.ObjectUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service("E82DC8B4-EBBF-4805-A569-EB61AFF6A080")
 public class BasicAuthenticationXCoder {
+  private static final Logger logger = LoggerFactory.getLogger(BasicAuthenticationXCoder.class);
+
   public static class BasicAuthentication {
     public String identifier;
     public String secret;
@@ -29,6 +33,7 @@ public class BasicAuthenticationXCoder {
   private static String BasicPrefix = "Basic ";
 
   public BasicAuthentication decode(String encodedBearerAuthentication) {
+    logger.debug("decode");
     if (encodedBearerAuthentication == null) {
       return null;
     }
@@ -55,6 +60,7 @@ public class BasicAuthenticationXCoder {
   }
 
   public String encode(BasicAuthentication authentication) {
+    logger.debug("encode");
     if (authentication == null) {
       return null;
     }

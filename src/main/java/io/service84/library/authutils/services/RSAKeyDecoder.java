@@ -22,10 +22,14 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.RSAPublicKeySpec;
 import java.util.Base64;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service("EC235EB7-FA8E-4AE7-BA64-9347BAF0B1D2")
 public class RSAKeyDecoder {
+  private static final Logger logger = LoggerFactory.getLogger(RSAKeyDecoder.class);
+
   private KeyFactory keyFactory;
 
   public RSAKeyDecoder() {
@@ -39,6 +43,7 @@ public class RSAKeyDecoder {
 
   public RSAPublicKey decodePublicKey(String base64Modulus, String base64Exponent)
       throws InvalidKeySpecException {
+    logger.debug("decodePublicKey");
     BigInteger modulus = new BigInteger(1, Base64.getUrlDecoder().decode(base64Modulus));
     BigInteger exponent = new BigInteger(1, Base64.getUrlDecoder().decode(base64Exponent));
     return (RSAPublicKey) keyFactory.generatePublic(new RSAPublicKeySpec(modulus, exponent));

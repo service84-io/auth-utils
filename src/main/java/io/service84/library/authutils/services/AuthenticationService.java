@@ -19,6 +19,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -27,7 +29,10 @@ import org.springframework.stereotype.Service;
 
 @Service("E0940F39-24CA-4034-BA65-23E1BB8317B3")
 public class AuthenticationService {
+  private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
+
   public Authentication getAuthentication() {
+    logger.debug("getAuthentication");
     SecurityContext context = SecurityContextHolder.getContext();
 
     if (context == null) {
@@ -38,6 +43,7 @@ public class AuthenticationService {
   }
 
   public String getAuthenticationToken() {
+    logger.debug("getAuthenticationToken");
     Authentication authentication = getAuthentication();
 
     if (authentication == null) {
@@ -54,10 +60,12 @@ public class AuthenticationService {
   }
 
   public List<String> getPermissions() {
+    logger.debug("getPermissions");
     return getScopes();
   }
 
   public List<String> getScopes() {
+    logger.debug("getScopes");
     Authentication authentication = getAuthentication();
 
     if (authentication == null) {
@@ -77,6 +85,7 @@ public class AuthenticationService {
   }
 
   public String getSubject() {
+    logger.debug("getSubject");
     Authentication authentication = getAuthentication();
 
     if (authentication == null) {
@@ -93,6 +102,7 @@ public class AuthenticationService {
   }
 
   public void setAuthentication(Authentication authentication) {
+    logger.debug("setAuthentication");
     SecurityContext context = SecurityContextHolder.getContext();
 
     if (context != null) {
