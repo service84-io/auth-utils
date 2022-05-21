@@ -31,7 +31,6 @@ import io.service84.library.authutils.services.BasicAuthenticationXCoder.BasicAu
 public class BasicAuthenticationXCoderTests {
   @TestConfiguration
   public static class Configuration {
-
     @Bean
     public BasicAuthenticationXCoder getBasicAuthenticationXCoder() {
       return new BasicAuthenticationXCoder();

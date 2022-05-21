@@ -37,7 +37,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public class RSAKeyDecoderTests {
   @TestConfiguration
   public static class Configuration {
-
     @Bean
     public RSAKeyDecoder getRSAKeyDecoder() {
       return new RSAKeyDecoder();

@@ -40,7 +40,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public class AuthenticationServiceTests {
   @TestConfiguration
   public static class Configuration {
-
     @Bean
     public AuthenticationService getAuthenticationService() {
       return new AuthenticationService();
