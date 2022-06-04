@@ -25,12 +25,9 @@ plugins {
 apply plugin: 'eclipse'
 apply plugin: 'java'
 
+apply from: 'version.gradle'
+
 def s84Group = 'io.service84.library'
-def s84Name = 'Auth Utils'
-def s84JarName = 'authutils'
-def s84Description = 'Authentication and Authorization Utilities for a Spring service'
-def s84GithubBase = 'https://github.com/service84-io/auth-utils'
-def s84Version = '1.3.50-SNAPSHOT'
 def s84CoreName = s84JarName.split('-')[0]
 
 // configure all java components to be published
